@@ -63,7 +63,7 @@ async function html2Bigvew (ctx, url) {
             mkdirs(path.join(process.cwd(), './src/tpl/bp-main'))
             fs.writeFileSync(path.join(process.cwd(), './src/tpl/bp-main/index.nj'), bpMain)
             await renderJsTpl('./jstpl/mainjstpl.nj', 'bp-main')
-            const mainPageLet = require('./tpl/bp-main')
+            const mainPageLet = require(path.join(process.cwd(), './src/tpl/bp-main/index.js'))
             bigView.main = mainPageLet
             $('#bp-main').empty()
           }
@@ -75,7 +75,7 @@ async function html2Bigvew (ctx, url) {
             mkdirs(path.join(process.cwd(), `./src/tpl/biglet_${i}`))
             fs.writeFileSync(path.join(process.cwd(), `./src/tpl/biglet_${i}/index.nj`), biglet)
             await renderJsTpl('./jstpl/bigletchildren.nj', `biglet_${i}`)
-            bigView.add(require(`./tpl/biglet_${i}`))
+            bigView.add(require(path.join(process.cwd(), `./src/tpl/biglet_${i}`)))
             $(`#biglet_${i}`).empty()
           }
           // 爬取layout
@@ -86,7 +86,7 @@ async function html2Bigvew (ctx, url) {
           await renderJsTpl('./jstpl/layoutjstpl.nj', 'bp-layout')
 
           // set layout
-          bigView.layout = require('./tpl/bp-layout')
+          bigView.layout = require(path.join(process.cwd(), './src/tpl/bp-layout'))
 
           // you can custom bigView dataStore
           bigView.dataStore = {}
