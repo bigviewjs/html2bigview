@@ -25,10 +25,19 @@ https://github.com/i5ting/bigview-koa-demo
 
 - body
 - layout（）
+<<<<<<< HEAD
 
 div.bp-layout
     div.biglet_1(biglet)
     div.biglet_name(biglet)
+=======
+- bpmain
+- biglet
+div#bp-layout
+    #bp-main
+    div.biglet #biglet_1(biglet)
+    div.biglet #biglet_name(biglet)
+>>>>>>> develop
 
 
 - http爬虫
@@ -39,6 +48,10 @@ div.bp-layout
 记录所有模块
 
 - bp-layout
+<<<<<<< HEAD
+=======
+- bp-main
+>>>>>>> develop
 - biglet_1
 - biglet_name
 
@@ -51,3 +64,16 @@ div.bp-layout
 - biglets
 
 5）发布到npm
+<<<<<<< HEAD
+=======
+
+6) 使用方式（需引入bigview.runtime.js)
+
+```
+const html2bigview = require('html2bigview')
+
+async index (ctx) {
+  await html2bigview(url)
+}
+```
+>>>>>>> develop

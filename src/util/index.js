@@ -15,6 +15,15 @@ const mkdirs = (route) => {
   }
 }
 
+<<<<<<< HEAD
 module.exports = {
   mkdirs
+=======
+const getProcessCwd = (route) => {
+  return path.join(process.cwd(), route)
+}
+module.exports = {
+  mkdirs,
+  getProcessCwd
+>>>>>>> develop
 }

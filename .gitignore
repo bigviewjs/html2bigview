@@ -59,7 +59,11 @@ typings/
 
 # next.js build output
 <<<<<<< HEAD
+<<<<<<< HEAD
 .next
 =======
 .next
 >>>>>>> b086499e7765765b23033e2cd29f8b28d692f751
+=======
+.next
+>>>>>>> develop
