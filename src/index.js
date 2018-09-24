@@ -5,7 +5,7 @@ const request = require('superagent')
 const cheerio = require('cheerio')
 const fs = require('fs')
 const path = require('path')
-const { mkdirs } = require('./util')
+const { mkdirs, getProcessCwd } = require('./util')
 const nunjucks = require('nunjucks')
 
 async function html2Bigvew (ctx, url) {
@@ -51,7 +51,7 @@ async function html2Bigvew (ctx, url) {
                   console.log(err)
                   return
                 }
-                fs.writeFileSync(path.join(process.cwd(), `./src/tpl/${name}/index.js`), html)
+                fs.writeFileSync(getProcessCwd(`./src/tpl/${name}/index.js`), html)
                 resolve()
               })
             })
@@ -60,10 +60,10 @@ async function html2Bigvew (ctx, url) {
           if ($('#bp-main').length !== 0) {
             // 爬取bp-main
             let bpMain = $('#bp-main').html()
-            mkdirs(path.join(process.cwd(), './src/tpl/bp-main'))
-            fs.writeFileSync(path.join(process.cwd(), './src/tpl/bp-main/index.nj'), bpMain)
+            mkdirs(path.join(getProcessCwd('./src/tpl/bp-main')))
+            fs.writeFileSync(getProcessCwd('./src/tpl/bp-main/index.nj'), bpMain)
             await renderJsTpl('./jstpl/mainjstpl.nj', 'bp-main')
-            const mainPageLet = require('./tpl/bp-main')
+            const mainPageLet = require(getProcessCwd('./src/tpl/bp-main/index.js'))
             bigView.main = mainPageLet
             $('#bp-main').empty()
           }
@@ -72,21 +72,21 @@ async function html2Bigvew (ctx, url) {
           for (let i = 1; i <= allBlglet.length; i++) {
             // 爬取biglet
             let biglet = $(`#biglet_${i}`).html()
-            mkdirs(path.join(process.cwd(), `./src/tpl/biglet_${i}`))
-            fs.writeFileSync(path.join(process.cwd(), `./src/tpl/biglet_${i}/index.nj`), biglet)
+            mkdirs(getProcessCwd(`./src/tpl/biglet_${i}`))
+            fs.writeFileSync(getProcessCwd(`./src/tpl/biglet_${i}/index.nj`), biglet)
             await renderJsTpl('./jstpl/bigletchildren.nj', `biglet_${i}`)
-            bigView.add(require(`./tpl/biglet_${i}`))
+            bigView.add(require(getProcessCwd(`./src/tpl/biglet_${i}`)))
             $(`#biglet_${i}`).empty()
           }
           // 爬取layout
           layout = $.html('html')
-          mkdirs(path.join(process.cwd(), './src/tpl/bp-layout'))
-          fs.writeFileSync(path.join(process.cwd(), `./src/tpl/bp-layout/index.nj`), layout)
+          mkdirs(getProcessCwd('./src/tpl/bp-layout'))
+          fs.writeFileSync(getProcessCwd(`./src/tpl/bp-layout/index.nj`), layout)
 
           await renderJsTpl('./jstpl/layoutjstpl.nj', 'bp-layout')
 
           // set layout
-          bigView.layout = require('./tpl/bp-layout')
+          bigView.layout = require(getProcessCwd('./src/tpl/bp-layout'))
 
           // you can custom bigView dataStore
           bigView.dataStore = {}
