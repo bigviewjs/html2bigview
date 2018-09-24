@@ -31,8 +31,6 @@ div#bp-layout
     #bp-main
     div.biglet #biglet_1(biglet)
     div.biglet #biglet_name(biglet)
-
-
 - http爬虫
 - jsdom
 
@@ -64,3 +62,4 @@ async index (ctx) {
   await html2bigview(url)
 }
 ```
+
