@@ -29,7 +29,7 @@ https://github.com/i5ting/bigview-koa-demo
 - biglet
 div#bp-layout
     #bp-main
-    div.biglet #biglet_1(biglet)
+    div.biglet #biglet_1(biglet) // 需要给所有的biglet添加class biglet 并且添加id `#biglet_${i}`
     div.biglet #biglet_name(biglet)
 - http爬虫
 - jsdom
@@ -57,9 +57,15 @@ div#bp-layout
 
 ```
 const html2bigview = require('html2bigview')
+// 启用redis来缓存爬虫结果 可选
+const redis = require('redis')
+const client = redis.createClient()
 
 async index (ctx) {
-  await html2bigview(url)
+  await html2bigview(url, {
+      zip: true, // 默认是true，压缩html去除换行符
+      redisClient: client, // 默认是false, 使用redis缓存爬虫内容
+  })
 }
 ```
 

@@ -9,6 +9,7 @@ class LayoutPagelet extends BigLet {
     this.root = __dirname
     this.name = '{{ name }}'
     this.tpl = path.join(__dirname, './index.nj')
+    this.data.bigview = '{{ bigview }}'
   }
 }
 

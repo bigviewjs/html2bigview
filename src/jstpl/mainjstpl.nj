@@ -8,8 +8,12 @@ class MainPagelet extends Biglet {
     super()
     this.root = __dirname
     this.tpl = path.join(__dirname, './index.nj')
-    this.name = '{{ name }}'
+    this.name = '{{ name  }}'
     this.domid = '{{ name }}'
+    {% if js %}
+    this.js = {{ js | safe}}
+    {% endif %}
+    
   }
 
   async fetch () {

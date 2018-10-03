@@ -1,6 +1,8 @@
 const fs = require('fs')
 const path = require('path')
 const nunjucks = require('nunjucks')
+const request = require('superagent')
+const minify = require('html-minifier').minify
 
 const mkdirs = (route) => {
   if (fs.existsSync(route)) {
@@ -20,16 +22,14 @@ const getProcessCwd = (route) => {
   return path.join(process.cwd(), route)
 }
 
-const renderJsTpl = (ctx, route, name) => {
+const renderJsTpl = (ctx, route, params) => {
   return new Promise(resolve => {
-    ctx.render(path.join(__dirname, route), {
-      name: name
-    }, (err, html) => {
+    ctx.render(path.join(__dirname, route), params, (err, html) => {
       if (err) {
         console.log(err)
         return
       }
-      fs.writeFileSync(getProcessCwd(`./src/tpl/${name}/index.js`), html)
+      fs.writeFileSync(getProcessCwd(`./src/tpl/${params.name}/index.js`), html)
       resolve()
     })
   })
@@ -37,7 +37,13 @@ const renderJsTpl = (ctx, route, name) => {
 
 const enHance = (ctx) => {
   ctx.render = function (tpl, data, cb) {
-    const env = nunjucks.configure('/')
+    const env = nunjucks.configure('/', {
+      tags: {
+        commentStart: '<!--',
+        commentEnd: '-->'
+      }
+    })
+
     if (/\.nj$/.test(tpl) || /\.html$/.test(tpl)) {
       env.render(tpl, data, (err, html) => {
         cb && cb(err, html)
@@ -55,17 +61,34 @@ const enHance = (ctx) => {
   }
 }
 
-const insertBigviewRuntime = (layout) => {
-  const bodyIndex = layout.indexOf('</body>')
-  layout = layout.substring(0, bodyIndex)
-  layout += '<script src="//g.alicdn.com/ku/bigview.runtime/1.4.5/bigview.runtime.min.js"></script></body></html>'
-  return layout
+const requestHtml = (url, cb) => {
+  request
+    .get(url)
+    .set('Content-Type', 'text/html; charset=UTF-8')
+    .end((err, rep) => {
+      if (err) {
+        console.log(err)
+        return
+      }
+      cb && cb(rep)
+    })
 }
 
+const myMinify = (html) => {
+  return minify(html, {
+    removeTagWhitespace: true,
+    removeEmptyAttributes: true,
+    minifyJS: true,
+    minifyCSS: true,
+    removeComments: true,
+    collapseWhitespace: true
+  })
+}
 module.exports = {
   mkdirs,
   getProcessCwd,
   renderJsTpl,
   enHance,
-  insertBigviewRuntime
+  requestHtml,
+  myMinify
 }
