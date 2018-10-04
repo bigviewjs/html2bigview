@@ -118,7 +118,7 @@ async function html2Bigvew (ctx, url, {redisClient = false, zip = true, headJs =
             requestHtml(url, newRep => {
               let html = newRep.text
               if (html !== rep) {
-                // 如果原页面内容改变 缓存新的html
+                console.log(`原页面更新，重新生成模版文件`)
                 global.refresh = true
                 redisClient.set(url, html)
               }
@@ -145,6 +145,7 @@ async function html2Bigvew (ctx, url, {redisClient = false, zip = true, headJs =
         requestHtml(url, newRep => {
           const newHtml = newRep.text
           if (newHtml !== html) {
+            console.log(`原页面更新，重新生成模版文件`)
             caches.set(url, newHtml)
             global.refresh = true // 重新生成模版文件
           }
