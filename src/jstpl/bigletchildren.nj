@@ -1,0 +1,23 @@
+'use strict'
+
+const Biglet = require('biglet')
+const path = require('path')
+
+class OtherPage extends Biglet {
+  constructor () {
+    super()
+    this.root = __dirname
+    this.tpl = path.join(__dirname, './index.nj')
+    this.name = '{{ name }}'
+    this.domid = '{{ name }}'
+    {% if js %}
+    this.js = {{ js | safe}}
+    {% endif %}
+  }
+
+  async fetch () {
+
+  }
+}
+
+module.exports = OtherPage

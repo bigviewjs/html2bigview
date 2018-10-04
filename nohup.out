@@ -1,0 +1,13 @@
+75064:C 27 Sep 14:30:01.261 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+75064:C 27 Sep 14:30:01.262 # Redis version=4.0.11, bits=64, commit=00000000, modified=0, pid=75064, just started
+75064:C 27 Sep 14:30:01.262 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+75064:M 27 Sep 14:30:01.263 * Increased maximum number of open files to 10032 (it was originally set to 7168).
+75064:M 27 Sep 14:30:01.264 * Running mode=standalone, port=6379.
+75064:M 27 Sep 14:30:01.264 # Server initialized
+75064:M 27 Sep 14:30:01.264 * DB loaded from disk: 0.000 seconds
+75064:M 27 Sep 14:30:01.264 * Ready to accept connections
+75064:signal-handler (1538029836) Received SIGINT scheduling shutdown...
+75064:M 27 Sep 14:30:36.680 # User requested shutdown...
+75064:M 27 Sep 14:30:36.680 * Saving the final RDB snapshot before exiting.
+75064:M 27 Sep 14:30:36.682 * DB saved on disk
+75064:M 27 Sep 14:30:36.682 # Redis is now ready to exit, bye bye...
