@@ -100,7 +100,7 @@ MacBook Chrome 性能设置为 fast3G 4xslowdown
 ![](https://img.alicdn.com/tfs/TB1VXg1fkvoK1RjSZFNXXcxMVXa-794-286.png)
 ### 未使用bigpipe模式
 ![未使用bigpipe](https://img.alicdn.com/tfs/TB1BZUTfmzqK1RjSZPcXXbTepXa-2732-1466.png)
-###使用bigpipe模式
+### 使用bigpipe模式
 ![使用bigpipe](https://img.alicdn.com/tfs/TB1sIw0fXzqK1RjSZFvXXcB7VXa-2674-1460.png)
 
 ### 总结
