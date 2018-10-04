@@ -29,7 +29,7 @@ const renderJsTpl = (ctx, route, params) => {
         console.log(err)
         return
       }
-      fs.writeFileSync(getProcessCwd(`./src/tpl/${params.name}/index.js`), html)
+      fs.writeFileSync(getProcessCwd(`./${params.tplPath}/${params.name}/index.js`), html)
       resolve()
     })
   })
